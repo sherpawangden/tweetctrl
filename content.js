@@ -8,7 +8,7 @@ function assignvariables() {
         currStorage = Number(result.counter);
         limit = Number(result.limitValue);
         totalTimeSpent = Number (result.totalTime);
-        abd();
+        check(totalTimeSpent);
         currStorage += 1;
         chrome.storage.local.set({'counter' : currStorage}, function(){});
         var currTime = new Date();
@@ -22,15 +22,15 @@ function assignvariables() {
     });
 };
 
-function abd() {
+function check(totalTime) {
     if (Number(currStorage) >= Number(limit)) {
-        if (totalTimeSpent > 60) {
-            hourSpent = Math.floor(totalTimeSpent / 60)
-            minutesSpent = totalTimeSpent % 60
+        if (totalTime > 60) {
+            hourSpent = Math.floor(totalTime / 60)
+            minutesSpent = totalTime % 60
             alert("You've been on Twitter " + currStorage + " times today for "+hourSpent+" hours and "+minutesSpent +" minutes");
         }
         else {
-            alert("You've been on Twitter " + currStorage + " times today for "+totalTimeSpent+" minutes");
+            alert("You've been on Twitter " + currStorage + " times today for "+totalTime+" minutes");
 
     }
 }

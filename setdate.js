@@ -2,10 +2,11 @@ function setTime() {
     chrome.storage.local.get(['totalTime', 'oldDate'],function(result) {
         const storedJSONDate = result.oldDate;
         const testdate = new Date(storedJSONDate);
-        var newDate = new Date();
-        var diff = Math.abs(newDate-testdate); 
-        var totalTime1 = Number(result.totalTime) + Math.round(diff/100000);
-        chrome.storage.local.set({'totalTime' : totalTime1},function(){});
+        const newDate = new Date();
+        const diff = Math.abs(newDate-testdate); 
+        const timeinseconds = Math.round(diff/60000)
+        const totalTime1 = Number(result.totalTime) + timeinseconds;
+        chrome.storage.local.set({'totalTime' : totalTime1}, function(){});
     });
 };
 
