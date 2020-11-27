@@ -1,0 +1,28 @@
+{
+    "name": "tweetCtrl",
+    "version": "0.0.1",
+    "description": "You set a limit and after that is crossed it alerts you everytime you open twitter with how many times you have opened twitter that day.",
+    "manifest_version": 2,
+    "content_scripts": [
+        {
+            "matches": ["https://twitter.com/*"],
+            "js": ["content.js"]
+        }
+        ,
+        {
+            "matches": ["*://*/*"],
+            "exclude_matches": ["https://twitter.com/*"],
+            "js": ["setdate.js"]
+        }
+    ],
+    "background" : {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_title": "Stretch From Home"
+    },
+    "permissions": ["storage","background","tabs", "activeTab", "http://*/",
+        "https://*/"]
+}
