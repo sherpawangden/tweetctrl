@@ -1,9 +1,12 @@
 var enabled = 0;
 var timerDuration;
 var longTimerDuration;
+var limitValue;
+var limitMinutes;
 
 function setMinutes(){
     limitValue = document.getElementById('limitTime').value;
+    limitMinutes = document.getElementById('limitMinutes').value;
 }
 
 
@@ -12,10 +15,15 @@ function checkAlarms(){
     chrome.storage.local.get(['limitValue'],function(result) {
         storedTime = result.limitValue
     });
+    var limitTimes;
+    chrome.storage.local.get(['limitMinutes'],function(result) {
+        limitTimes = result.limitMinutes
+    });
 
     chrome.storage.local.get(['saved'],function(result) {
         if (result.saved == 'yes'){
-            document.getElementById('limitTime').value = Number(storedTime);    
+            document.getElementById('limitTime').value = Number(storedTime); 
+            document.getElementById('limitMinutes').value = Number(limitTimes);     
             document.getElementById('selectConfirm').style.opacity = "1";  
             turnButtonOff();
         }
@@ -46,6 +54,7 @@ function setLimit() {
     }
     chrome.storage.local.set({'saved': 'yes'}, function(){});
     chrome.storage.local.set({'limitValue': limitValue}, function(){});
+    chrome.storage.local.set({'limitMinutes': limitMinutes}, function(){});
     chrome.storage.local.set({'counter' : 1}, function(){});
     chrome.storage.local.set({'totalTime' : 0}, function(){});
     chrome.storage.local.set({'oldDate' : 0}, function(){});
